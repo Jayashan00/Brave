@@ -53,7 +53,7 @@ export default function AdminLayout({ children }) {
           <p className="font-slab text-lg font-semibold">{NAV.find(([h]) => (h === '/admin' ? pathname === '/admin' : pathname.startsWith(h)))?.[1] || 'Admin'}</p>
           <span className="ml-auto hidden text-sm text-slate sm:block">Signed in as admin</span>
         </header>
-        <div className="p-4 sm:p-6">{children}</div>
+        <div className="min-w-0 p-3 sm:p-6">{children}</div>
       </div>
     </div>
   );

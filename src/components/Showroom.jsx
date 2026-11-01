@@ -43,30 +43,30 @@ export default function Showroom() {
           </div>
         </div>
 
-        <div className="mt-10 grid gap-8 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)]">
-          <div className="rounded-[28px] bg-white p-3 text-navy sm:p-4">
+        <div className="mt-8 grid grid-cols-1 gap-6 sm:mt-10 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] lg:gap-8">
+          <div className="min-w-0 rounded-[22px] bg-white p-2.5 text-navy sm:rounded-[28px] sm:p-4">
             {inView ? <Viewer3D key={p.id} product={p} colour={colour} onColour={setColour} size={size} onSize={setSize} /> : <div className="aspect-square rounded-[22px] bg-navy-50" />}
           </div>
 
-          <div className="flex flex-col">
+          <div className="flex min-w-0 flex-col">
             <AnimatePresence mode="wait">
               <motion.div key={p.id} initial={{ opacity: 0, x: 16 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -16 }} transition={{ duration: 0.3 }}>
-                <h3 className="font-slab text-3xl font-semibold leading-tight">{tx(p.name)}</h3>
+                <h3 className="font-slab text-2xl font-semibold leading-tight sm:text-3xl">{tx(p.name)}</h3>
                 <p className="mt-2 text-2xl font-semibold text-gold-300">{fmt(p.price)}</p>
                 <p className="mt-4 line-clamp-4 leading-relaxed text-white/75">{tx(p.description)}</p>
                 <p className="mt-3 text-sm text-white/60">{t('fabric')}: {p.fabric}</p>
-                <div className="mt-6 flex flex-wrap gap-3">
-                  <button onClick={() => { addToCart(p.id, size, colourName, 1); showToast(`${t('added')} · ${size}`); }} className="btn-gold px-6 py-3"><ShoppingBag className="h-[18px] w-[18px]" />{t('add_to_cart')}</button>
-                  <Link href={`/product/${p.slug}`} className="btn border border-white/30 px-6 py-3 text-white hover:bg-white hover:text-navy">{t('description')}<ArrowUpRight className="h-4 w-4" /></Link>
+                <div className="mt-6 grid grid-cols-2 gap-3 sm:flex sm:flex-wrap">
+                  <button onClick={() => { addToCart(p.id, size, colourName, 1); showToast(`${t('added')} · ${size}`); }} className="btn-gold px-4 py-3 sm:px-6"><ShoppingBag className="h-[18px] w-[18px]" />{t('add_to_cart')}</button>
+                  <Link href={`/product/${p.slug}`} className="btn border border-white/30 px-4 py-3 text-white hover:bg-white hover:text-navy sm:px-6">{t('description')}<ArrowUpRight className="h-4 w-4" /></Link>
                 </div>
               </motion.div>
             </AnimatePresence>
 
-            <div className="mt-auto pt-10">
+            <div className="mt-auto pt-8 lg:pt-10">
               <div className="mb-3 stitch w-full text-white/15" />
-              <div className="no-scrollbar -mx-1 flex gap-3 overflow-x-auto px-1 pb-1 lg:grid lg:grid-cols-4 lg:overflow-visible">
+              <div className="no-scrollbar -mx-1 flex snap-x gap-2.5 overflow-x-auto px-1 py-2 sm:gap-3 lg:grid lg:grid-cols-4 lg:overflow-visible">
                 {list.map((x) => (
-                  <button key={x.id} onClick={() => { setId(x.id); setColour(''); }} aria-label={tx(x.name)} className={`relative aspect-square w-20 shrink-0 overflow-hidden rounded-xl bg-white/95 transition lg:w-auto ${x.id === p.id ? 'ring-2 ring-gold ring-offset-2 ring-offset-navy' : 'opacity-75 hover:opacity-100'}`}>
+                  <button key={x.id} onClick={() => { setId(x.id); setColour(''); }} aria-label={tx(x.name)} className={`relative aspect-square w-[72px] shrink-0 snap-start overflow-hidden rounded-xl bg-white/95 transition sm:w-20 lg:w-auto ${x.id === p.id ? 'ring-2 ring-gold ring-offset-2 ring-offset-navy' : 'opacity-75 hover:opacity-100'}`}>
                     <Img src={x.model3d.front || x.images[0]} alt="" sizes="96px" className="object-contain p-1.5" />
                   </button>
                 ))}

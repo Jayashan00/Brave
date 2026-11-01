@@ -10,7 +10,7 @@ export default function Footer() {
   const s = useStore((st) => st.settings);
   const cats = useStore((st) => st.categories);
   return (
-    <footer className="mt-24 bg-navy text-white/80">
+    <footer className="mt-16 bg-navy text-white/80 sm:mt-24">
       <div className="wrap grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr_1.3fr]">
         <div>
           <Logo light />
@@ -42,7 +42,7 @@ export default function Footer() {
           <ul className="mt-4 space-y-3 text-[15px]">
             <li className="flex gap-3"><MapPin className="mt-0.5 h-[18px] w-[18px] shrink-0 text-gold" />{s.address}</li>
             <li className="flex gap-3"><Phone className="mt-0.5 h-[18px] w-[18px] shrink-0 text-gold" /><a className="hover:text-gold" href={`tel:${s.phone.replace(/\s/g, '')}`}>{s.phone}</a></li>
-            <li className="flex gap-3"><Mail className="mt-0.5 h-[18px] w-[18px] shrink-0 text-gold" /><a className="break-all hover:text-gold" href={`mailto:${s.email}`}>{s.email}</a></li>
+            <li className="flex gap-3"><Mail className="mt-0.5 h-[18px] w-[18px] shrink-0 text-gold" /><a className="[overflow-wrap:anywhere] hover:text-gold" href={`mailto:${s.email}`}>{s.email}</a></li>
             <li className="flex gap-3"><Clock className="mt-0.5 h-[18px] w-[18px] shrink-0 text-gold" />{tx(s.hours)}</li>
           </ul>
         </div>
@@ -50,7 +50,7 @@ export default function Footer() {
       <div className="border-t border-white/10">
         <div className="wrap flex flex-col items-center justify-between gap-4 py-5 text-sm sm:flex-row">
           <p>© {new Date().getFullYear()} {s.storeName} · {s.legalName}. {t('rights')}</p>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center justify-center gap-2">
             <span className="mr-1 text-white/60">{t('pay_methods')}</span>
             <PayChip icon={Banknote} label={t('cod')} />
             <PayChip icon={Landmark} label={t('bank')} />

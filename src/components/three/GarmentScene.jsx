@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Shadow, Html, Line } from '@react-three/drei';
+import { Shadow, Line } from '@react-three/drei';
 import * as THREE from 'three';
 import { prepareGarment } from '@/lib/garment';
 
@@ -169,13 +169,7 @@ function Measure({ dims, sizeInfo, scale }) {
   return (
     <group scale={scale}>
       <Line points={[[-half, y, 0.36], [half, y, 0.36]]} color="#D9A21B" lineWidth={1.5} dashed dashSize={0.04} gapSize={0.025} />
-      <Html position={[0, y + 0.07, 0.36]} center className="pointer-events-none">
-        <span className="whitespace-nowrap rounded bg-navy px-1.5 py-0.5 text-[11px] font-semibold text-white">{sizeInfo.chestLabel}</span>
-      </Html>
-      <Line points={[[x, H / 2 - 0.05, 0], [x, -H / 2 + 0.05, 0]]} color="#D9A21B" lineWidth={1.5} dashed dashSize={0.04} gapSize={0.025} />
-      <Html position={[x - 0.03, 0, 0]} className="pointer-events-none">
-        <span className="block -translate-x-full -translate-y-1/2 whitespace-nowrap rounded bg-navy px-1.5 py-0.5 text-[11px] font-semibold text-white">{sizeInfo.lengthLabel}</span>
-      </Html>
+      <Line points={[[x, H / 2 - 0.05, 0], [x, -H / 2 + 0.05, 0]]} color="#A62830" lineWidth={1.5} dashed dashSize={0.04} gapSize={0.025} />
     </group>
   );
 }
@@ -213,7 +207,7 @@ export default function GarmentScene({ src, tint, view, autoRotate = true, scale
 
   return (
     <div className="absolute inset-0 touch-pan-y select-none" style={{ cursor: interactive ? 'grab' : 'default' }} {...pointer}>
-      <Canvas dpr={[1, 2]} camera={{ position: [0, 0, zoom], fov: 32 }} gl={{ antialias: true, alpha: true, toneMapping: THREE.NoToneMapping }}>
+      <Canvas dpr={[1, 1.75]} camera={{ position: [0, 0, zoom], fov: 32 }} gl={{ antialias: true, alpha: true, toneMapping: THREE.NoToneMapping }}>
         <Zoomer zoom={zoom} />
         {data && (
           <ScaleGroup scale={scale}>

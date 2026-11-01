@@ -16,10 +16,10 @@ export default function Banners() {
         <p className="mb-4 text-sm text-slate">Wide photos (landscape) look best. Slides change every 7 seconds.</p>
         <ul className="space-y-3">
           {banners.map((b, i) => (
-            <li key={b.id} className="flex items-center gap-4 rounded-xl p-2 ring-1 ring-line">
-              <div className="relative aspect-video w-36 shrink-0 overflow-hidden rounded-lg bg-navy-50"><Img src={b.image} alt="" sizes="144px" className="object-cover" /></div>
-              <div className="min-w-0 flex-1"><p className="truncate font-semibold">{b.title.en}</p><p className="truncate text-sm text-slate">{b.subtitle?.en}</p><p className="text-xs text-slate">Button: {b.cta?.en} → {b.link}</p></div>
-              <div className="flex gap-1">
+            <li key={b.id} className="flex flex-wrap items-center gap-3 rounded-xl p-2 ring-1 ring-line sm:flex-nowrap sm:gap-4">
+              <div className="relative aspect-video w-24 shrink-0 overflow-hidden rounded-lg bg-navy-50 sm:w-36"><Img src={b.image} alt="" sizes="144px" className="object-cover" /></div>
+              <div className="min-w-0 flex-1 basis-[calc(100%-120px)] sm:basis-auto"><p className="truncate font-semibold">{b.title.en}</p><p className="truncate text-sm text-slate">{b.subtitle?.en}</p><p className="text-xs text-slate">Button: {b.cta?.en} → {b.link}</p></div>
+              <div className="ml-auto flex gap-1">
                 <IB onClick={() => moveBanner(b.id, -1)} disabled={i === 0}><ArrowUp className="h-4 w-4" /></IB>
                 <IB onClick={() => moveBanner(b.id, 1)} disabled={i === banners.length - 1}><ArrowDown className="h-4 w-4" /></IB>
                 <IB onClick={() => setEdit(structuredClone(b))}><Pencil className="h-4 w-4" /></IB>

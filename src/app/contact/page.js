@@ -19,7 +19,7 @@ export default function Contact() {
         <div className="space-y-4">
           {[[MapPin, s.address, `https://www.google.com/maps/search/?api=1&query=${mapQ}`], [Phone, s.phone, `tel:${s.phone.replace(/\s/g, '')}`], [Mail, s.email, `mailto:${s.email}`], [Clock, tx(s.hours)]].map(([I, v, href], k) => (
             <a key={k} href={href} target={href?.startsWith('http') ? '_blank' : undefined} rel="noreferrer" className="flex items-start gap-4 rounded-2xl bg-white p-5 ring-1 ring-line hover:ring-navy">
-              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-navy text-gold"><I className="h-5 w-5" /></span><span className="break-all pt-2.5 font-medium">{v}</span>
+              <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-navy text-gold"><I className="h-5 w-5" /></span><span className="min-w-0 pt-2.5 font-medium [overflow-wrap:anywhere]">{v}</span>
             </a>
           ))}
           <a href={waLink(s.whatsapp, t('wa_hello'))} target="_blank" rel="noreferrer" className="btn-wa w-full py-3.5"><WaIcon className="h-5 w-5" />{t('cta_wa')}</a>

@@ -50,14 +50,15 @@ export default function Header() {
     <>
       <div className="bg-navy text-white">
         <div className="wrap flex h-9 items-center justify-between gap-4 text-[13px]">
-          <div className="no-scrollbar overflow-hidden whitespace-nowrap">
-            <span className="text-white/85">{tx(settings.announcement)}</span>
+          <div className="relative min-w-0 flex-1 overflow-hidden whitespace-nowrap">
+            <span className="hidden text-white/85 md:inline">{tx(settings.announcement)}</span>
+            <div className="ann-marquee flex w-max md:hidden"><span className="pr-12 text-white/85">{tx(settings.announcement)}</span><span className="pr-12 text-white/85" aria-hidden="true">{tx(settings.announcement)}</span></div>
           </div>
           <a href={`tel:${settings.phone.replace(/\s/g, '')}`} className="hidden shrink-0 font-medium text-gold-300 hover:text-white sm:block">{settings.phone}</a>
         </div>
       </div>
       <header className={`sticky top-0 z-40 border-b transition-colors ${scrolled ? 'border-line bg-white/95 backdrop-blur' : 'border-transparent bg-chalk'}`} onMouseLeave={() => setMega(false)}>
-        <div className="wrap flex h-[72px] items-center gap-4">
+        <div className="wrap flex h-16 items-center gap-2 sm:h-[72px] sm:gap-4">
           <button className="-ml-2 grid h-10 w-10 place-items-center rounded-full hover:bg-navy-50 lg:hidden" onClick={() => setMobile(true)} aria-label={t('menu')}><Menu className="h-5 w-5" /></button>
           <Link href="/" aria-label="Brave Sports Wears home"><Logo /></Link>
           <nav className="ml-4 hidden items-center gap-0.5 lg:flex xl:ml-6">
@@ -69,7 +70,7 @@ export default function Header() {
               <Link key={l.href} href={l.href} onMouseEnter={() => setMega(false)} className={`whitespace-nowrap rounded-full px-3 py-2 font-medium transition hover:bg-navy-50 ${lang === 'en' ? 'text-[15px]' : 'text-[14px]'} ${l.wide ? 'hidden xl:block' : ''} ${pathname === l.href ? 'text-crimson' : ''}`}>{l.label}</Link>
             ))}
           </nav>
-          <div className="ml-auto flex items-center gap-1">
+          <div className="ml-auto flex items-center gap-0.5 sm:gap-1">
             <button onClick={() => setSearch((s) => !s)} className="grid h-10 w-10 place-items-center rounded-full hover:bg-navy-50" aria-label={t('search')}><Search className="h-5 w-5" /></button>
             <div className="relative">
               <button onClick={() => setLangOpen((o) => !o)} className="flex h-10 items-center gap-1 rounded-full px-2.5 text-sm font-semibold hover:bg-navy-50" aria-label={t('lang')}>

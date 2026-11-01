@@ -63,10 +63,10 @@ function ProductPage() {
   const waText = `${t('wa_hello')}: ${tx(p.name)}\n${t('size')}: ${size || '-'}\n${t('colour')}: ${colourName}\n${t('qty')}: ${qty}\n${typeof window !== 'undefined' ? window.location.href : ''}`;
 
   return (
-    <div className="wrap py-8">
-      <nav className="mb-6 flex flex-wrap gap-1.5 text-sm text-slate" aria-label="Breadcrumb">
+    <div className="wrap pb-28 pt-6 sm:pt-8 lg:pb-8">
+      <nav className="mb-5 flex flex-wrap gap-1.5 text-sm text-slate" aria-label="Breadcrumb">
         <Link href="/" className="hover:text-navy">Home</Link>/<Link href="/shop" className="hover:text-navy">{t('nav_shop')}</Link>/
-        {cat && <><Link href={`/shop?cat=${cat.slug}`} className="hover:text-navy">{tx(cat.name)}</Link>/</>}<span className="text-navy">{tx(p.name)}</span>
+        {cat && <><Link href={`/shop?cat=${cat.slug}`} className="hover:text-navy">{tx(cat.name)}</Link>/</>}<span className="line-clamp-1 text-navy">{tx(p.name)}</span>
       </nav>
       <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:gap-14">
         <div className="lg:sticky lg:top-24 lg:self-start">
@@ -84,13 +84,13 @@ function ProductPage() {
               <ZoomImage src={p.images[img]} alt={tx(p.name)} />
             </div>
           ) : (
-            <Viewer3D product={p} colour={colour} onColour={setColour} size={size || (isKids ? '6-7Y' : 'M')} onSize={(s) => { setSize(s); setSizeErr(false); }} />
+            <Viewer3D product={p} colour={colour} onColour={setColour} size={size || (isKids ? '6-7Y' : 'M')} onSize={(s) => { setSize(s); setSizeErr(false); }} showSizes={false} />
           )}
         </div>
 
         <div>
           <p className="text-sm font-semibold text-crimson">{tx(cat?.name)}</p>
-          <h1 className="mt-2 font-slab text-[clamp(1.9rem,3.4vw,2.7rem)] font-bold leading-[1.1]">{tx(p.name)}</h1>
+          <h1 className="mt-2 font-slab text-[clamp(1.65rem,3.4vw,2.7rem)] font-bold leading-[1.1]">{tx(p.name)}</h1>
           <div className="mt-4 flex items-center gap-3">
             <span className="text-3xl font-semibold">{fmt(p.price)}</span>
             {off > 0 && <><span className="text-lg text-slate line-through">{fmt(p.compareAt)}</span><span className="rounded-full bg-crimson px-2.5 py-1 text-sm font-bold text-white">−{off}%</span></>}
@@ -100,7 +100,7 @@ function ProductPage() {
           </p>
           <p className="mt-5 leading-relaxed text-navy/85">{tx(p.description)}</p>
 
-          <div className="mt-7">
+          {mode === 'photos' && <div className="mt-7">
             <p className="mb-2 text-sm font-semibold">{t('colour')}: <span className="font-normal text-slate">{colourName}</span></p>
             <div className="flex flex-wrap gap-2">
               {(p.colors || []).map((c) => (
@@ -110,15 +110,15 @@ function ProductPage() {
               ))}
             </div>
             {p.colors?.length > 1 && <p className="mt-2 text-xs text-slate">Other colours are made to order – preview them in 3D.</p>}
-          </div>
+          </div>}
 
-          <div className="mt-6">
+          <div id="size-picker" className="mt-6 scroll-mt-28">
             <div className="mb-2 flex items-center justify-between">
               <p className={`text-sm font-semibold ${sizeErr ? 'text-crimson' : ''}`}>{t('size')}{sizeErr && ` – ${t('choose_size')}`}</p>
               <button onClick={() => setGuide(true)} className="flex items-center gap-1.5 text-sm font-medium underline underline-offset-4"><Ruler className="h-4 w-4" />{t('size_guide')}</button>
             </div>
             <div className="flex flex-wrap gap-2">
-              {p.sizes.map((s) => <button key={s} onClick={() => { setSize(s); setSizeErr(false); }} className={`min-w-[52px] rounded-xl border px-3 py-2.5 font-semibold transition ${size === s ? 'border-navy bg-navy text-white' : `bg-white hover:border-navy ${sizeErr ? 'border-crimson' : 'border-line'}`}`}>{s}</button>)}
+              {p.sizes.map((s) => <button key={s} onClick={() => { setSize(s); setSizeErr(false); }} className={`min-w-[48px] rounded-xl border px-2.5 py-2.5 sm:min-w-[52px] sm:px-3 font-semibold transition ${size === s ? 'border-navy bg-navy text-white' : `bg-white hover:border-navy ${sizeErr ? 'border-crimson' : 'border-line'}`}`}>{s}</button>)}
             </div>
           </div>
 
@@ -156,6 +156,18 @@ function ProductPage() {
           <div className="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4">{related.map((x) => <ProductCard key={x.id} p={x} />)}</div>
         </section>
       )}
+
+      {/* sticky buy bar – phones & tablets */}
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-white/95 px-4 pb-[max(12px,env(safe-area-inset-bottom))] pt-3 backdrop-blur lg:hidden">
+        <div className="mx-auto flex max-w-xl items-center gap-3">
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-xs text-slate">{size ? `${t('size')} ${size}` : t('choose_size')}</p>
+            <p className="font-semibold">{fmt(p.price * qty)}</p>
+          </div>
+          <a href={waLink(settings.whatsapp, waText)} target="_blank" rel="noreferrer" aria-label={t('order_whatsapp')} className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[#1FA855] text-white"><WaIcon className="h-5 w-5" /></a>
+          <button onClick={() => { if (!size) { window.scrollTo({ top: (document.getElementById('size-picker')?.getBoundingClientRect().top || 0) + window.scrollY - 120, behavior: 'smooth' }); } add(false); }} disabled={p.stock <= 0 && !p.madeToOrder} className="btn-primary h-12 shrink-0 px-6">{t('add_to_cart')}</button>
+        </div>
+      </div>
 
       <AnimatePresence>
         {guide && (

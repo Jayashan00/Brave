@@ -7,7 +7,7 @@ import { fileToDataUrl } from '@/lib/store';
 
 export function Card({ title, action, children, className = '' }) {
   return (
-    <section className={`rounded-2xl bg-white p-5 ring-1 ring-line ${className}`}>
+    <section className={`min-w-0 rounded-2xl bg-white p-4 ring-1 ring-line sm:p-5 ${className}`}>
       {(title || action) && <div className="mb-4 flex items-center justify-between gap-3"><h2 className="font-slab text-lg font-semibold">{title}</h2>{action}</div>}
       {children}
     </section>

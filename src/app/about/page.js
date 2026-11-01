@@ -14,7 +14,7 @@ export default function About() {
       <div className="wrap py-12">
         <div className="grid items-center gap-10 lg:grid-cols-2">
           <div>
-            <p className="max-w-[60ch] font-slab text-2xl leading-relaxed">{tx(s.about)}</p>
+            <p className="max-w-[60ch] font-slab text-lg leading-relaxed sm:text-2xl">{tx(s.about)}</p>
             <div className="mt-8 grid grid-cols-2 gap-4">
               {s.stats.map((x, i) => <div key={i} className="border-l-2 border-gold pl-4"><p className="font-slab text-4xl font-bold text-crimson">{x.value}</p><p className="text-sm text-slate">{tx(x.label)}</p></div>)}
             </div>

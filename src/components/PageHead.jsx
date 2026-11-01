@@ -2,7 +2,7 @@ import Link from 'next/link';
 export default function PageHead({ title, sub, crumbs = [] }) {
   return (
     <div className="border-b border-line bg-white">
-      <div className="wrap py-10">
+      <div className="wrap py-7 sm:py-10">
         <nav className="mb-3 flex flex-wrap items-center gap-1.5 text-sm text-slate" aria-label="Breadcrumb">
           <Link href="/" className="hover:text-navy">Home</Link>
           {crumbs.map((c, i) => <span key={i} className="flex items-center gap-1.5">/{c.href ? <Link href={c.href} className="hover:text-navy">{c.label}</Link> : <span className="text-navy">{c.label}</span>}</span>)}

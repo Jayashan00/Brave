@@ -18,6 +18,11 @@
 
 :root { --nav-h: 72px; }
 html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+/* never allow sideways page scrolling on phones (clip keeps sticky header working) */
+html, body { overflow-x: clip; max-width: 100%; }
+/* grid columns may shrink below their content width (fixes 3D showroom overflow) */
+.grid > * { min-width: 0; }
+img, canvas, video, iframe { max-width: 100%; }
 body { @apply bg-chalk text-navy font-sans antialiased; text-rendering: optimizeLegibility; }
 html[lang='si'] body, html[lang='ta'] body { line-height: 1.7; }
 html[lang='si'] .font-slab, html[lang='ta'] .font-slab { letter-spacing: 0 !important; }
@@ -45,6 +50,9 @@ h1, h2, h3, .font-slab { font-family: 'Zilla Slab', 'Noto Sans Sinhala', 'Noto S
 
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { scrollbar-width: none; }
+
+@keyframes annMarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.ann-marquee { animation: annMarquee 22s linear infinite; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }

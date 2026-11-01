@@ -47,7 +47,7 @@ export default function Settings() {
           <p className="mb-2 mt-5 text-sm font-semibold">Team discounts (applied automatically in the cart)</p>
           <div className="space-y-2">
             {s.bulkTiers.map((t, i) => (
-              <div key={i} className="flex items-center gap-2 text-sm">
+              <div key={i} className="flex flex-wrap items-center gap-2 text-sm">
                 From <input type="number" className="input w-24 py-1.5" value={t.min} onChange={(e) => set('bulkTiers', s.bulkTiers.map((x, k) => (k === i ? { ...x, min: e.target.value } : x)))} /> pieces,
                 <input type="number" className="input w-20 py-1.5" value={t.off} onChange={(e) => set('bulkTiers', s.bulkTiers.map((x, k) => (k === i ? { ...x, off: e.target.value } : x)))} />% off
                 <button type="button" onClick={() => set('bulkTiers', s.bulkTiers.filter((_, k) => k !== i))} className="ml-auto text-crimson" aria-label="Remove"><Trash2 className="h-4 w-4" /></button>
