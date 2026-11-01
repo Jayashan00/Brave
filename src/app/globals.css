@@ -1,0 +1,51 @@
+@import '@fontsource/zilla-slab/500.css';
+@import '@fontsource/zilla-slab/600.css';
+@import '@fontsource/zilla-slab/700.css';
+@import '@fontsource/public-sans/400.css';
+@import '@fontsource/public-sans/500.css';
+@import '@fontsource/public-sans/600.css';
+@import '@fontsource/public-sans/700.css';
+@import '@fontsource/noto-sans-sinhala/400.css';
+@import '@fontsource/noto-sans-sinhala/600.css';
+@import '@fontsource/noto-sans-sinhala/700.css';
+@import '@fontsource/noto-sans-tamil/400.css';
+@import '@fontsource/noto-sans-tamil/600.css';
+@import '@fontsource/noto-sans-tamil/700.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { --nav-h: 72px; }
+html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+body { @apply bg-chalk text-navy font-sans antialiased; text-rendering: optimizeLegibility; }
+html[lang='si'] body, html[lang='ta'] body { line-height: 1.7; }
+html[lang='si'] .font-slab, html[lang='ta'] .font-slab { letter-spacing: 0 !important; }
+
+h1, h2, h3, .font-slab { font-family: 'Zilla Slab', 'Noto Sans Sinhala', 'Noto Sans Tamil', Georgia, serif; }
+
+*:focus-visible { outline: 2px solid #D9A21B; outline-offset: 2px; border-radius: 6px; }
+
+@layer components {
+  .wrap { @apply mx-auto w-full max-w-[1240px] px-4 sm:px-6 lg:px-8; }
+  .btn { @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-[15px] font-semibold transition active:scale-[.98] disabled:cursor-not-allowed disabled:opacity-50; }
+  .btn-primary { @apply btn bg-navy text-white hover:bg-navy-700; }
+  .btn-gold { @apply btn bg-gold text-navy hover:bg-gold-300; }
+  .btn-ghost { @apply btn border border-navy/20 bg-white text-navy hover:border-navy; }
+  .btn-wa { @apply btn bg-[#1FA855] text-white hover:bg-[#178C46]; }
+  .input { @apply w-full rounded-xl border border-line bg-white px-3.5 py-2.5 text-[15px] text-navy outline-none transition placeholder:text-slate/60 focus:border-navy focus:ring-2 focus:ring-navy/10; }
+  .label { @apply mb-1.5 block text-sm font-semibold text-navy; }
+  .card { @apply rounded-2xl border border-line bg-white; }
+  .h-sec { @apply font-slab text-[clamp(1.75rem,3.2vw,2.6rem)] font-semibold leading-[1.1] tracking-[-0.01em] text-navy; }
+  /* stitched seam – the one decorative motif, taken from garment seams */
+  .stitch { background-image: linear-gradient(90deg, currentColor 55%, transparent 0); background-size: 10px 2px; background-repeat: repeat-x; height: 2px; }
+  .stitch-box { position: relative; }
+  .stitch-box::after { content: ''; position: absolute; inset: 7px; border: 1.5px dashed rgba(217,162,27,.55); border-radius: inherit; pointer-events: none; }
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
